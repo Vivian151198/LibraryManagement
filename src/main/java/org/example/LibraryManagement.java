@@ -9,7 +9,13 @@ public class LibraryManagement {
 
     }
 
-    public void initBookData(){
+    public void initUsersData(){
+        List<User> userList = database.queryUsers();
+        for (User user : userList) {
+            System.out.println(user.toString());
+        }
+    }
+    public void initDocumentsData(){
         List<Document> documentList = database.queryDocuments();
         for (Document document : documentList) {
             System.out.println(document.toString());
@@ -17,7 +23,8 @@ public class LibraryManagement {
     }
     public void start() {
         this.initDatabaseConnection();
-        initBookData();
+        initDocumentsData();
+        initUsersData();
     }
 
     private void initDatabaseConnection() {

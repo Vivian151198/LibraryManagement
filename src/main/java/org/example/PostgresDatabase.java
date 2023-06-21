@@ -1,5 +1,6 @@
 package org.example;
 
+import java.net.SocketException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +92,30 @@ public class PostgresDatabase implements IDatabase {
     }
 
     @Override
-    public User queryUserById(String userId) {
-        return null;
+    public List<User> queryUsers() {
+        List<User> userList = new ArrayList<>();
+        this.connect();
+        String query = "SELECT * FROM \"User\"";
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()){
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setIdCardNumber(resultSet.getString("idCardNumber"));
+                userList.add(user);
+            }
+
+            resultSet.close();
+            statement.close();
+            this.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return userList;
     }
 
 }
