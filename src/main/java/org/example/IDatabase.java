@@ -10,4 +10,6 @@ public interface IDatabase {
     public List<Document> queryDocuments();
 
     public List<User> queryUsers();
+
+    public void writeDocumentIntoDB(Document document);
 }

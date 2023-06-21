@@ -118,4 +118,18 @@ public class PostgresDatabase implements IDatabase {
         return userList;
     }
 
+    @Override
+    public void writeDocumentIntoDB(Document document) {
+        this.connect();
+        String query = "INSERT INTO public.\"Document\" (\"name\", \"type\", \"author\", \"publishedAt\", \"quantity\") VALUES('"+document.getName()+"','"+document.getType()+"','"+document.getAuthor()+"','"+document.getPublishedAt()+"','"+document.getQuantity()+"')";
+        try {
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate(query);
+            statement.close();
+            this.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
 }
