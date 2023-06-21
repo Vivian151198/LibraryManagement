@@ -39,4 +39,13 @@ public class User {
     public void setIdCardNumber(String idCardNumber) {
         this.idCardNumber = idCardNumber;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", idCardNumber='" + idCardNumber + '\'' +
+                '}';
+    }
 }

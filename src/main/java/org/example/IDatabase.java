@@ -9,5 +9,5 @@ public interface IDatabase {
 
     public List<Document> queryDocuments();
 
-    public User queryUserById(String userId);
+    public List<User> queryUsers();
 }
