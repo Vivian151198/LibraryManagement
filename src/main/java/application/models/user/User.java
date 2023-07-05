@@ -4,8 +4,8 @@ import application.models.Entity;
 import io.github.thibaultmeyer.cuid.CUID;
 
 public abstract class User extends Entity {
-    private final Role role;
-    private final String name;
+    private Role role;
+    private String name;
     protected User(CUID id, String name, Role role) {
         super(id);
         this.name = name;
