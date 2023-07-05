@@ -1,4 +1,4 @@
-package application.domain.entities.user;
+package application.models.user;
 
 public enum Role {
     ADMIN,

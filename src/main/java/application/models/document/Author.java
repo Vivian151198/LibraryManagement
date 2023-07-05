@@ -1,6 +1,6 @@
-package application.domain.entities.document;
+package application.models.document;
 
-import application.domain.Entity;
+import application.models.Entity;
 import io.github.thibaultmeyer.cuid.CUID;
 
 public class Author extends Entity {
