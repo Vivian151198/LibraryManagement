@@ -1,6 +1,6 @@
-package application.domain.entities.user;
+package application.models.user;
 
-import application.domain.Entity;
+import application.models.Entity;
 import io.github.thibaultmeyer.cuid.CUID;
 
 public abstract class User extends Entity {
