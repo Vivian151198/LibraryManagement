@@ -11,4 +11,8 @@ public class Book extends Document{
         super(null, name, DocumentType.BOOK, publishedAt, quantity);
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
