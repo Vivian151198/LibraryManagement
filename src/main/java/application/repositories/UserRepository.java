@@ -11,19 +11,19 @@ import java.sql.SQLException;
 
 public class UserRepository extends BaseRepository {
     public User findOneById(String userId) {
-        String query = "SELECT id, \"name\", \"idCardNumber\", \"type\" FROM public.\"User\" WHERE id='%s';";
-        ResultSet resultSet = this.database.execute(String.format(query, userId));
+        String query = String.format("SELECT id, \"name\", \"idCardNumber\", \"role\" FROM public.\"User\" WHERE id='%s';", userId);
+        ResultSet resultSet = this.database.execute(query);
         try {
             resultSet.next();
             CUID id = CUID.fromString(resultSet.getString("id"));
             String userName = resultSet.getString("name");
-            Role role = Role.valueOf(resultSet.getString("type"));
+            Role role = Role.valueOf(resultSet.getString("role"));
             resultSet.close();
             this.database.disconnect();
-            if(role == Role.ADMIN) {
+            if (role == Role.ADMIN) {
                 return new Admin(id, userName);
             }
-            if(role == Role.READER) {
+            if (role == Role.READER) {
                 return new Reader(id, userName);
             }
         } catch (SQLException e) {
