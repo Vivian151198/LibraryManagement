@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:14.2
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'library-management:/var/modules/library-management/postgresql'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=7432
+volumes:
+  library-management:
