@@ -18,22 +18,22 @@ public class DocumentRepository extends BaseRepository {
         try {
             if (!resultSet.next()) {
                 return null;
-            } else {
+            }
 
-                CUID id = CUID.fromString(resultSet.getString("id"));
-                DocumentType type = DocumentType.valueOf(resultSet.getString("type"));
-                String _name = resultSet.getString("name");
-                String publishedAt = resultSet.getString("publishedAt");
-                int quantity = resultSet.getInt("quantity");
+            CUID id = CUID.fromString(resultSet.getString("id"));
+            DocumentType type = DocumentType.valueOf(resultSet.getString("type"));
+            String _name = resultSet.getString("name");
+            String publishedAt = resultSet.getString("publishedAt");
+            int quantity = resultSet.getInt("quantity");
 
-                this.database.disconnect();
-                resultSet.close();
-                if (type == DocumentType.BOOK) {
-                    return new Book(id, _name, publishedAt, quantity);
-                }
-                if (type == DocumentType.CD) {
-                    return new CD(id, _name, publishedAt, quantity);
-                }
+            this.database.disconnect();
+            resultSet.close();
+            if (type == DocumentType.BOOK) {
+                return new Book(id, _name, publishedAt, quantity);
+            }
+            if (type == DocumentType.CD) {
+                return new CD(id, _name, publishedAt, quantity);
+
             }
         } catch (SQLException e) {
             System.out.println("Find document error!");
