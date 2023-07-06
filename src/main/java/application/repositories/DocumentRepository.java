@@ -9,29 +9,33 @@ import io.github.thibaultmeyer.cuid.CUID;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DocumentRepository extends BaseRepository{
+public class DocumentRepository extends BaseRepository {
 
-    public Document findOneDocumentByName(String name){
+    public Document findOneDocumentByName(String name) {
 
         String query = String.format("SELECT id, \"name\", \"type\", \"publishedAt\", quantity FROM \"Document\" WHERE name='%s'", name);
         ResultSet resultSet = this.database.execute(query);
-        try{
-            resultSet.next();
-            CUID id = CUID.fromString(resultSet.getString("id"));
-            DocumentType type = DocumentType.valueOf(resultSet.getString("type"));
-            String _name = resultSet.getString("name");
-            String publishedAt = resultSet.getString("publishedAt");
-            int quantity = resultSet.getInt("quantity");
+        try {
+            if (!resultSet.next()) {
+                return null;
+            } else {
 
-            this.database.disconnect();
-            resultSet.close();
-            if(type == DocumentType.BOOK){
-                return new Book(id, _name, publishedAt, quantity);
+                CUID id = CUID.fromString(resultSet.getString("id"));
+                DocumentType type = DocumentType.valueOf(resultSet.getString("type"));
+                String _name = resultSet.getString("name");
+                String publishedAt = resultSet.getString("publishedAt");
+                int quantity = resultSet.getInt("quantity");
+
+                this.database.disconnect();
+                resultSet.close();
+                if (type == DocumentType.BOOK) {
+                    return new Book(id, _name, publishedAt, quantity);
+                }
+                if (type == DocumentType.CD) {
+                    return new CD(id, _name, publishedAt, quantity);
+                }
             }
-            if(type == DocumentType.CD){
-                return new CD(id, _name, publishedAt, quantity);
-            }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Find document error!");
         }
         return null;
