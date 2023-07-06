@@ -1,0 +1,13 @@
+package application.models.document;
+
+import io.github.thibaultmeyer.cuid.CUID;
+
+public class CD extends Document{
+
+    public CD(CUID id,String name, String publishedAt, int quantity ){
+        super(id, name, DocumentType.CD, publishedAt, quantity);
+    }
+    public CD(String name, String publishedAt, int quantity) {
+        super(null, name, DocumentType.CD, publishedAt, quantity);
+    }
+}
