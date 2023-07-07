@@ -1,10 +1,10 @@
 package application.repositories;
 
+import application.models.base.CUID;
 import application.models.document.Book;
 import application.models.document.CD;
 import application.models.document.Document;
 import application.models.document.DocumentType;
-import io.github.thibaultmeyer.cuid.CUID;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

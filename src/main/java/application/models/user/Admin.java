@@ -1,6 +1,6 @@
 package application.models.user;
 
-import io.github.thibaultmeyer.cuid.CUID;
+import application.models.base.CUID;
 
 public class Admin extends User {
     public Admin(CUID id, String name) {

@@ -1,7 +1,7 @@
 package application.models.document;
 
 import application.models.Entity;
-import io.github.thibaultmeyer.cuid.CUID;
+import application.models.base.CUID;
 
 public abstract class Document extends Entity {
 

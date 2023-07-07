@@ -1,20 +1,25 @@
 package application.services;
 
 import application.models.user.User;
+import application.models.user.UserResponse;
 import application.repositories.UserRepository;
 import io.github.thibaultmeyer.cuid.CUID;
 
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService() {
         this.userRepository = new UserRepository();
     }
 
-    public User findOneById(String id) {
-        if(CUID.isValid(id)) {
-            return this.userRepository.findOneById(id);
+    public UserResponse findOneById(String id) {
+        if (!CUID.isValid(id)) {
+            return null;
         }
-        return null;
+        User user = this.userRepository.findOneById(id);
+        if (user == null) {
+            return null;
+        }
+        return new UserResponse(user.getId().toString(), user.getName(), user.getRole());
     }
 }

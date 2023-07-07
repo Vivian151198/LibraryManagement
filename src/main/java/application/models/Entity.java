@@ -1,6 +1,6 @@
 package application.models;
 
-import io.github.thibaultmeyer.cuid.CUID;
+import application.models.base.CUID;
 
 public abstract class Entity {
     protected CUID id;

@@ -1,10 +1,11 @@
 package application;
 
-import application.views.LibraryManagement;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        LibraryManagement libraryManagement = new LibraryManagement();
-        libraryManagement.start();
+        SpringApplication.run(Main.class, args);
     }
 }
