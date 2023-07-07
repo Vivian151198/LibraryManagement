@@ -10,4 +10,9 @@ public class CD extends Document{
     public CD(String name, String publishedAt, int quantity) {
         super(null, name, DocumentType.CD, publishedAt, quantity);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
