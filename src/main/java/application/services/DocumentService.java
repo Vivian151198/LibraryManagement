@@ -28,32 +28,15 @@ public class DocumentService {
             System.out.println("Keyword is null");
             return null;
         }
-        List<Document> documentList = documentRepository.findListDocumentByKeyword(keyword);
-        if (documentList.size() == 0) {
-            System.out.println("No document found!");
-            return null;
-        }
+        return documentRepository.findListDocumentByKeyword(keyword);
 
-        return documentList;
     }
 
     public List<Book> getAllBook() {
-        List<Book> bookList = documentRepository.getAllBook();
-        if (bookList.size() == 0) {
-            System.out.println("List book is null");
-            return null;
-        }
-
-        return bookList;
+        return documentRepository.getAllBook();
     }
 
     public List<CD> getAllCD() {
-        List<CD> cdList = documentRepository.getAllCD();
-        if (cdList.size() == 0) {
-            System.out.println("List cd is null");
-            return null;
-        }
-
-        return cdList;
+        return documentRepository.getAllCD();
     }
 }

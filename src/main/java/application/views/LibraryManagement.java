@@ -37,23 +37,24 @@ public class LibraryManagement {
 //        User user = userController.findOneById(userId);
 //        System.out.println(user);
 
-//        System.out.println("===========");
-//        List<Document> documentList = documentController.findListDocumentByKeyword("h");
-//        for (Document document : documentList) {
-//            System.out.println(document);
-//        }
-//
-//        System.out.println("============");
-//        List<Book> bookList = documentController.getAllBook();
-//        for (Book book : bookList) {
-//            System.out.println(book);
-//        }
-//
-//        System.out.println("============");
-//        List<CD> cdList = documentController.getAlLCD();
-//        for (CD cd : cdList) {
-//            System.out.println(cd);
-//        }
+        System.out.println("===========");
+        List<Document> documentList = documentController.findListDocumentByKeyword("hrt");
+        System.out.println(documentList.size());
+        for (Document document : documentList) {
+            System.out.println(document);
+        }
+
+        System.out.println("============");
+        List<Book> bookList = documentController.getAllBook();
+        for (Book book : bookList) {
+            System.out.println(book);
+        }
+
+        System.out.println("============");
+        List<CD> cdList = documentController.getAlLCD();
+        for (CD cd : cdList) {
+            System.out.println(cd);
+        }
 
         System.out.println("==========");
         List<Author> authorList = authorController.getAllAuthor();

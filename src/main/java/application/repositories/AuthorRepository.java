@@ -8,14 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuthorRepository extends  BaseRepository{
+public class AuthorRepository extends BaseRepository {
 
-    public List<Author> getAllAuthor(){
+    public List<Author> getAllAuthor() {
         List<Author> authorList = new ArrayList<>();
         String query = "select * from \"Author\"";
         ResultSet resultSet = this.database.execute(query);
         try {
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 CUID id = CUID.fromString(resultSet.getString("authorId"));
                 String name = resultSet.getString("name");
                 Author author = new Author(id, name);
@@ -23,15 +23,12 @@ public class AuthorRepository extends  BaseRepository{
             }
             this.database.disconnect();
             resultSet.close();
-            if(authorList.size() == 0){
-                System.out.println("The author list is empty");
-            }
-            else {
-                return authorList;
-            }
-        }catch (SQLException e){
+
+            return authorList;
+
+        } catch (SQLException e) {
             System.out.println("Find the author error!");
         }
-        return null;
+        return authorList;
     }
 }

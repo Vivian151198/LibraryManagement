@@ -71,7 +71,7 @@ public class DocumentRepository extends BaseRepository {
         } catch (SQLException e) {
             System.out.println("Find the list document error!");
         }
-        return null;
+        return documentList;
     }
 
     public List<Book> getAllBook(){
@@ -97,7 +97,7 @@ public class DocumentRepository extends BaseRepository {
         } catch (SQLException e) {
             System.out.println("Find the list book error!");
         }
-        return null;
+        return bookList;
     }
 
     public List<CD> getAllCD(){
@@ -123,6 +123,6 @@ public class DocumentRepository extends BaseRepository {
         } catch (SQLException e) {
             System.out.println("Find the list cd error!");
         }
-        return null;
+        return cdList;
     }
 }
