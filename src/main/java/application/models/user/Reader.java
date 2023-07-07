@@ -1,6 +1,6 @@
 package application.models.user;
 
-import io.github.thibaultmeyer.cuid.CUID;
+import application.models.base.CUID;
 
 public class Reader extends User {
     public Reader(CUID id, String name) {
@@ -9,5 +9,10 @@ public class Reader extends User {
 
     public Reader(String name) {
         super(null, name, Role.READER);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

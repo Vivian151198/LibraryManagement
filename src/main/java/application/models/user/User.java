@@ -1,7 +1,7 @@
 package application.models.user;
 
 import application.models.Entity;
-import io.github.thibaultmeyer.cuid.CUID;
+import application.models.base.CUID;
 
 public abstract class User extends Entity {
     private Role role;
@@ -23,9 +23,9 @@ public abstract class User extends Entity {
     @Override
     public String toString() {
         return "User{" +
-                "role=" + role +
+                "id='" + id +
+                ", role=" + role +
                 ", name='" + name + '\'' +
-                ", id=" + id +
                 '}';
     }
 }
