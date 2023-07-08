@@ -1,5 +1,6 @@
 package application.controllers;
 
+import application.models.user.User;
 import application.models.user.UserResponse;
 import application.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,16 @@ public class UserController {
     }
 
     @GetMapping("/find")
-    public UserResponse findOneById(@RequestParam("id") String id) {
-        return this.userService.findOneById(id);
+    public UserResponse findOneById(@RequestParam("id") String id) throws Exception {
+        UserResponse userResponse;
+       try{
+          User user =  userService.findOneById(id);
+          userResponse = new UserResponse(user.getId().toString(), user.getName(), user.getRole());
+
+       }catch (Exception e){
+           return null;
+       }
+       return userResponse;
     }
 
 }

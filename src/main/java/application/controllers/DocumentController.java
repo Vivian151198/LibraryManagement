@@ -25,7 +25,11 @@ public class DocumentController {
 
    @GetMapping("/find-by-keyword")
    public List<DocumentResponse> findListDocumentByKeyword(@RequestParam("keyword") String keyword){
-       return this.documentService.findListDocumentByKeyword(keyword);
+       try {
+           return this.documentService.findListDocumentByKeyword(keyword);
+       }catch (Exception e){
+           return null;
+       }
    }
 
    @GetMapping("/book/get-all-list")

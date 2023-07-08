@@ -23,10 +23,10 @@ public class DocumentService {
         return new DocumentResponse(document.getId().toString(), document.getName(), document.getType(), document.getPublishedAt(), document.getQuantity());
     }
 
-    public List<DocumentResponse> findListDocumentByKeyword(String keyword) {
+    public List<DocumentResponse> findListDocumentByKeyword(String keyword) throws Exception {
         List<DocumentResponse> documentResponses = new ArrayList<>();
         if (keyword == null) {
-            return null;
+            throw new Exception("Keyword must not be null");
         }
         List<Document> documentList = documentRepository.findListDocumentByKeyword(keyword);
         for (Document document : documentList) {
