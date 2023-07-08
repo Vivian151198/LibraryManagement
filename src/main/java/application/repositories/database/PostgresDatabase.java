@@ -46,4 +46,17 @@ public class PostgresDatabase implements IDatabase {
             return null;
         }
     }
+
+    @Override
+    public Statement update(String query) {
+        try {
+            this.connect();
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate(query);
+            return statement;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
 }

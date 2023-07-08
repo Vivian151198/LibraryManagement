@@ -1,7 +1,7 @@
 package application.repositories;
 
+import application.models.base.CUID;
 import application.models.document.Author;
-import io.github.thibaultmeyer.cuid.CUID;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

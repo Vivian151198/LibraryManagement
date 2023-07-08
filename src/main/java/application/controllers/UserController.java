@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
     private UserService userService;
 
@@ -16,7 +16,7 @@ public class UserController {
         userService = new UserService();
     }
 
-    @GetMapping("/user")
+    @GetMapping("/find")
     public UserResponse findOneById(@RequestParam("id") String id) {
         return this.userService.findOneById(id);
     }
