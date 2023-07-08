@@ -1,5 +1,6 @@
 package application.services;
 
+import application.models.user.Role;
 import application.models.user.User;
 import application.models.user.UserResponse;
 import application.repositories.UserRepository;
@@ -12,14 +13,14 @@ public class UserService {
         this.userRepository = new UserRepository();
     }
 
-    public UserResponse findOneById(String id) {
+    public User findOneById(String id) throws Exception {
         if (!CUID.isValid(id)) {
-            return null;
+           throw new Exception("Please input valid userID");
         }
         User user = this.userRepository.findOneById(id);
         if (user == null) {
-            return null;
+           throw new Exception("User invalid");
         }
-        return new UserResponse(user.getId().toString(), user.getName(), user.getRole());
+        return user;
     }
 }

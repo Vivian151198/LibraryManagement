@@ -8,6 +8,7 @@ import application.models.document.DocumentType;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class DocumentRepository extends BaseRepository {
         List<Document> documentList = new ArrayList<>();
         String query =
                 "SELECT id, \"name\", \"type\", \"publishedAt\", quantity FROM \"Document\""
-                +"WHERE name like " + "'%" + keyword + "%'";
+                        + "WHERE name like " + "'%" + keyword + "%'";
         ResultSet resultSet = this.database.execute(query);
         try {
             while (resultSet.next()) {
@@ -65,7 +66,7 @@ public class DocumentRepository extends BaseRepository {
                     documentList.add(cd);
                 }
             }
-            this.database.disconnect();;
+            this.database.disconnect();
             resultSet.close();
             return documentList;
         } catch (SQLException e) {
@@ -74,7 +75,7 @@ public class DocumentRepository extends BaseRepository {
         return documentList;
     }
 
-    public List<Book> getAllBook(){
+    public List<Book> getAllBook() {
         List<Book> bookList = new ArrayList<>();
         String query = "select * from \"Document\"";
         ResultSet resultSet = this.database.execute(query);
@@ -91,7 +92,7 @@ public class DocumentRepository extends BaseRepository {
                     bookList.add((Book) book);
                 }
             }
-            this.database.disconnect();;
+            this.database.disconnect();
             resultSet.close();
             return bookList;
         } catch (SQLException e) {
@@ -100,7 +101,7 @@ public class DocumentRepository extends BaseRepository {
         return bookList;
     }
 
-    public List<CD> getAllCD(){
+    public List<CD> getAllCD() {
         List<CD> cdList = new ArrayList<>();
         String query = "select * from \"Document\"";
         ResultSet resultSet = this.database.execute(query);
@@ -117,12 +118,19 @@ public class DocumentRepository extends BaseRepository {
                     cdList.add((CD) cd);
                 }
             }
-            this.database.disconnect();;
-            resultSet.close();
+            this.database.disconnect();
+            resultSet.close();  // Have "BOM" so using try catch
             return cdList;
         } catch (SQLException e) {
             System.out.println("Find the list cd error!");
         }
         return cdList;
+    }
+
+    public Document addDocument(Document document) throws SQLException {
+        String query = "INSERT INTO public.\"Document\" (\"id\", \"name\", \"type\",\"publishedAt\", \"quantity\") VALUES('" + document.getId() + "','" + document.getName() + "','" + document.getType() + "','" + document.getPublishedAt() + "','" + document.getQuantity() + "')";
+        Statement statement = this.database.update(query); // SQLException is child class of Exception
+        statement.close();
+        return document;
     }
 }

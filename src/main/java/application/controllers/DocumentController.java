@@ -1,12 +1,15 @@
 package application.controllers;
 
-import application.models.document.Book;
-import application.models.document.CD;
 import application.models.document.Document;
+import application.models.document.DocumentRequestBody;
+import application.models.document.DocumentResponse;
 import application.services.DocumentService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/document")
 public class DocumentController {
 
     private DocumentService documentService;
@@ -15,19 +18,36 @@ public class DocumentController {
        this.documentService = new DocumentService();
    }
 
-   public Document findOneDocumentByName(String name){
-       return documentService.findDocumentByName(name);
+   @GetMapping("/find")
+   public DocumentResponse findOneDocumentByName(@RequestParam("name") String name){
+       return this.documentService.findDocumentByName(name);
    }
 
-   public List<Document> findListDocumentByKeyword(String keyword){
-       return documentService.findListDocumentByKeyword(keyword);
+   @GetMapping("/find-by-keyword")
+   public List<DocumentResponse> findListDocumentByKeyword(@RequestParam("keyword") String keyword){
+       try {
+           return this.documentService.findListDocumentByKeyword(keyword);
+       }catch (Exception e){
+           return null;
+       }
    }
 
-   public List<Book> getAllBook(){
-       return documentService.getAllBook();
+   @GetMapping("/book/get-all-list")
+   public List<DocumentResponse> getAllBook(){
+       return this.documentService.getAllBook();
    }
 
-   public List<CD> getAlLCD(){
-       return documentService.getAllCD();
+   @GetMapping("/cd/get-all-list")
+   public List<DocumentResponse> getAlLCD(){
+       return this.documentService.getAllCD();
+   }
+
+   @PostMapping("/add")
+   public String addBook(@RequestBody DocumentRequestBody documentRequestBody){
+      try {
+          return documentService.addDocument(documentRequestBody);
+      }catch (Exception e){
+          return e.getMessage();
+      }
    }
 }
