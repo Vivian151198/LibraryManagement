@@ -1,11 +1,9 @@
 package application.services;
 
-import application.models.document.Book;
-import application.models.document.CD;
-import application.models.document.Document;
-import application.models.document.DocumentResponse;
+import application.models.document.*;
 import application.repositories.DocumentRepository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +56,27 @@ public class DocumentService {
         return documentResponses;
     }
 
-    public void addDocument(){
+    public String addDocument(DocumentRequestBody documentRequestBody) throws Exception {
+        String name = documentRequestBody.getName();
+        DocumentType type = DocumentType.valueOf(documentRequestBody.getType());
+        String publishedAt = documentRequestBody.getPublishedAt();
+        int quantity = documentRequestBody.getQuantity();
+
+        if(type != DocumentType.CD && type != DocumentType.BOOK) {
+            throw new Exception("Type is invalid");
+        }
+        Document document;
+
+        if(type == DocumentType.BOOK) {
+            document = new Book(name, publishedAt, quantity);
+        } else {
+            document = new CD(name, publishedAt, quantity);
+        }
+
+        document = documentRepository.addDocument(document);
+        if(document == null){
+            throw new Exception("Add document failed");
+        }
+       return "ADD DOCUMENT SUCCESSFULLY!";
     }
 }

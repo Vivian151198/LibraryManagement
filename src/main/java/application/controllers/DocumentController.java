@@ -1,6 +1,7 @@
 package application.controllers;
 
 import application.models.document.Document;
+import application.models.document.DocumentRequestBody;
 import application.models.document.DocumentResponse;
 import application.services.DocumentService;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +33,17 @@ public class DocumentController {
        return this.documentService.getAllBook();
    }
 
-   @GetMapping("cd/get-all-list")
+   @GetMapping("/cd/get-all-list")
    public List<DocumentResponse> getAlLCD(){
        return this.documentService.getAllCD();
    }
 
-   @PostMapping("add")
-   public String addBook(@RequestBody Document document){
-        return "Request body received:" + document.getName() + document.getType() + document.getPublishedAt() + document.getQuantity();
+   @PostMapping("/add")
+   public String addBook(@RequestBody DocumentRequestBody documentRequestBody){
+      try {
+          return documentService.addDocument(documentRequestBody);
+      }catch (Exception e){
+          return e.getMessage();
+      }
    }
 }

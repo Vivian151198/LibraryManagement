@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class DocumentRepository extends BaseRepository {
 
@@ -120,7 +119,7 @@ public class DocumentRepository extends BaseRepository {
                 }
             }
             this.database.disconnect();;
-            resultSet.close();
+            resultSet.close();  // Have "BOM" so using try catch
             return cdList;
         } catch (SQLException e) {
             System.out.println("Find the list cd error!");
@@ -128,28 +127,15 @@ public class DocumentRepository extends BaseRepository {
         return cdList;
     }
 
-    public void addDocument(){
-         Document document = null;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter name of document: ");
-        String name = scanner.nextLine();
-        System.out.println("Please enter type of document: BOOK or CD");
-        String type = scanner.nextLine();
-        System.out.println("Please enter the publish date of document ");
-        String publishedAt = scanner.nextLine();
-        System.out.println("Please enter quantity of document:");
-        Integer quantity = Integer.parseInt(scanner.nextLine());
-
-        if(type == "BOOK"){
-            document = new Book(name, publishedAt, quantity);
+    public Document addDocument(Document document){
+        String query = "INSERT INTO public.\"Document\" (\"id\", \"name\", \"type\",\"publishedAt\", \"quantity\") VALUES('"+document.getId()+"','"+document.getName()+"','"+document.getType()+"','"+document.getPublishedAt()+"','"+document.getQuantity()+"')";
+        try{
+            Statement statement = this.database.update(query);
+            statement.close();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
         }
-        if(type == "CD"){
-
-            document = new CD(name, publishedAt, quantity);
-        }
-
-        String query = "INSERT INTO public.\"Document\" (\"name\", \"type\",\"publishedAt\", \"quantity\") VALUES('"+document.getName()+"','"+document.getType()+"','"+document.getPublishedAt()+"','"+document.getQuantity()+"')";
-        Statement statement = this.database.update(query);
-
+        return document;
     }
 }
