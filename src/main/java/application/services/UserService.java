@@ -15,11 +15,11 @@ public class UserService {
 
     public User findOneById(String id) throws Exception {
         if (!CUID.isValid(id)) {
-           throw new Exception("Please input valid userID");
+           throw new Exception("invalid_user_id");
         }
         User user = this.userRepository.findOneById(id);
         if (user == null) {
-           throw new Exception("User invalid");
+           throw new Exception("user_not_found");
         }
         return user;
     }

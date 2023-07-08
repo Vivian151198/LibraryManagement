@@ -1,15 +1,14 @@
 package application.controllers;
 
 import application.models.user.User;
+import application.models.user.UserData;
 import application.models.user.UserResponse;
 import application.services.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private UserService userService;
 
@@ -22,10 +21,11 @@ public class UserController {
         UserResponse userResponse;
        try{
           User user =  userService.findOneById(id);
-          userResponse = new UserResponse(user.getId().toString(), user.getName(), user.getRole());
+          UserData userData = new UserData(user.getId().toString(), user.getName(), user.getRole());
+          userResponse = new UserResponse("success", null, userData);
 
        }catch (Exception e){
-           return null;
+           return new UserResponse("failed", e.getMessage(), null);
        }
        return userResponse;
     }
